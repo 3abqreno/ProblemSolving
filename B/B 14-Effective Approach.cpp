@@ -121,27 +121,21 @@ int binarySearch(vector<pair<int, int>> &ar, int value) {
 void solve() {
     int n,x;
     cin>>n;
-    map<int,vector<int>>mp;
+    vector<vector<int>>mp(n+1);
 
     for (int i = 0; i < n; ++i) {
         cin>>x;
         mp[x].push_back(i+1);
     }
     for(auto i:mp){
-        sortv(i.second);
+        sortv(i);
     }
     ll m,l=0,r=0;
     cin>>m;
     for (int i = 0; i < m; ++i) {
         cin>>x;
-        if(mp.find(x)!=mp.end()){
             l+=*mp[x].begin();
             r+=n+1-*(mp[x].end()-1);
-        }
-        else{
-            l+=n;
-            r+=n;
-        }
     }
     cout<<l<<" "<<r;
 }
