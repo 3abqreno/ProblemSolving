@@ -2,7 +2,7 @@
 //  |____ |     | |
 //     / / __ _| |__   __ _ _ __ ___ _ __   ___
 //      \ \/ _` | '_ \ / _` | '__/ _ \ '_ \ / _ \
-    //  .___/ / (_| | |_) | (_| | | |  __/ | | | (_) |
+//  .___/ / (_| | |_) | (_| | | |  __/ | | | (_) |
 //  \____/ \__,_|_.__/ \__, |_|  \___|_| |_|\___/
 //                       | |
 //                       |_|
@@ -111,7 +111,7 @@ public:
             int y = edge[2];
 
             // Take this edge in MST if it does
-              // not forms a cycle
+            // not forms a cycle
             if (s.find(x) != s.find(y)) {
                 s.unite(x, y);
                 ans += w;
@@ -122,8 +122,9 @@ public:
     }
 };
 
-
+int f=0;
 void solve() {
+    f--;
     ll n,m,w;
     cin>>n>>m;
     string a,b;
@@ -132,24 +133,27 @@ void solve() {
     Graph gr(n);
     for (int i = 0; i < m; ++i) {
         cin>>a>>b>>w;
-        if(mp[a]==0){
+        if(mp.find(a)==mp.end()){
             mp[a]=s;s++;
         }
-        if(mp[b]==0){
+        if(mp.find(b)==mp.end()){
             mp[b]=s;s++;
         }
         gr.addEdge(mp[a],mp[b],w);
     }
     cout<<gr.kruskals_mst();
+    cout<<"\n";
+    if(f)cout<<"\n";
 }
 
 
 int main() {
     //freopen("input.txt", "r", stdin);
-    // freopen("output.txt", "w", stdout);
-    allam
+    // freopen("output.txt", "w", std   out);
+    //allam
     int t = 1;
-     cin >> t;
+    cin >> t;
+    f=t;
     while (t--) {
         solve();
     }
