@@ -44,6 +44,26 @@ int dy[8] = {1, -1, 0, 0, 1, -1, -1, 1};
 
 
 void solve() {
+    
+    {\\simpler solution but not mine
+     ll a,b;
+    cin >> a >> b;
+
+    ll dashaFreq = (lcm(a,b))/a;
+    ll mashaFreq = (lcm(a,b))/b;
+
+    a>b?dashaFreq++:mashaFreq++;
+    if (dashaFreq>mashaFreq) {
+        cout << "Dasha";
+    } else if (mashaFreq>dashaFreq) {
+        cout << "Masha";
+    }else {
+        cout << "Equal";
+    }
+
+
+    }
+    
     ll a,b,t=0,lc,sa=0,sb=0;
     cin>>a>>b;
     lc=lcm(a,b);
