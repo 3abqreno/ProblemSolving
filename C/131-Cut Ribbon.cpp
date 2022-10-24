@@ -8,6 +8,7 @@
 //                       |_|
 #include<iostream>
 #include <bits/stdc++.h>
+
 #define all(v) v.begin(),v.end()
 #define sortv(v) sort(all(v))
 using namespace std;
@@ -17,35 +18,21 @@ typedef long long ll;
 int dx[8] = {0, 0, 1, -1, 1, -1, 1, -1};
 int dy[8] = {1, -1, 0, 0, 1, -1, -1, 1};
 
-
+int dp[4005]={};
 void solve() {
-    string s;
-    while(true){
-        getline(cin,s);
-        if(s=="0")return;
-        stringstream os;
-        os<<s;
-        int p,e,num=1;
-        while(os>>p>>e){
-            for (int i = 0; i < e; ++i) {
-                num*=p;
-            }
-        }
-        num--;
-        map<int,int>mp;
-        for (int i = 2; i*i<= num; ++i) {
-            while(num%i==0){
-                mp[i]++;
-                num/=i;
-            }
-        }
-        if(num>1)mp[num]++;
-        for(auto it=mp.rbegin();it!=mp.rend();it++){
-            cout<<it->first<<" "<<it->second;
-            if(it!=(--mp.rend()))cout<<" ";
-        }
-        cout<<'\n';
+    for (int i = 0; i < 4005; ++i) {
+        dp[i]=INT_MIN;
     }
+int n,a,b,c;
+cin>>n>>a>>b>>c;
+dp[0]=0;
+    for (int i = 1; i <= n; ++i) {
+        if(i-a>=0)dp[i]=max(dp[i],dp[i-a]+1);
+        if(i-b>=0)dp[i]=max(dp[i],dp[i-b]+1);
+        if(i-c>=0)dp[i]=max(dp[i],dp[i-c]+1);
+    }
+    cout<<dp[n];
+
 }
 
 int main() {

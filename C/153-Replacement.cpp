@@ -8,6 +8,7 @@
 //                       |_|
 #include<iostream>
 #include <bits/stdc++.h>
+
 #define all(v) v.begin(),v.end()
 #define sortv(v) sort(all(v))
 using namespace std;
@@ -17,35 +18,26 @@ typedef long long ll;
 int dx[8] = {0, 0, 1, -1, 1, -1, 1, -1};
 int dy[8] = {1, -1, 0, 0, 1, -1, -1, 1};
 
-
 void solve() {
-    string s;
-    while(true){
-        getline(cin,s);
-        if(s=="0")return;
-        stringstream os;
-        os<<s;
-        int p,e,num=1;
-        while(os>>p>>e){
-            for (int i = 0; i < e; ++i) {
-                num*=p;
-            }
-        }
-        num--;
-        map<int,int>mp;
-        for (int i = 2; i*i<= num; ++i) {
-            while(num%i==0){
-                mp[i]++;
-                num/=i;
-            }
-        }
-        if(num>1)mp[num]++;
-        for(auto it=mp.rbegin();it!=mp.rend();it++){
-            cout<<it->first<<" "<<it->second;
-            if(it!=(--mp.rend()))cout<<" ";
-        }
-        cout<<'\n';
+    int n;
+    cin >> n;
+    vector<int> v(n);
+
+    for (int i = 0; i < n; ++i) {
+        cin >> v[i];
     }
+    if(n==1){
+        cout<<(v[0]>1?1:2);
+        return;
+    }
+    sortv(v);
+    cout<<1<<" ";
+    for (int i = 1; i <n-1; ++i) {
+        cout<<v[i-1]<<" ";
+    }
+    if(n>1)
+    {if(v[n-1]==1)cout<<2;
+    else cout<<v[n-2];}
 }
 
 int main() {

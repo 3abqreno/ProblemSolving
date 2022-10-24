@@ -8,6 +8,7 @@
 //                       |_|
 #include<iostream>
 #include <bits/stdc++.h>
+
 #define all(v) v.begin(),v.end()
 #define sortv(v) sort(all(v))
 using namespace std;
@@ -19,34 +20,22 @@ int dy[8] = {1, -1, 0, 0, 1, -1, -1, 1};
 
 
 void solve() {
-    string s;
-    while(true){
-        getline(cin,s);
-        if(s=="0")return;
-        stringstream os;
-        os<<s;
-        int p,e,num=1;
-        while(os>>p>>e){
-            for (int i = 0; i < e; ++i) {
-                num*=p;
-            }
-        }
-        num--;
-        map<int,int>mp;
-        for (int i = 2; i*i<= num; ++i) {
-            while(num%i==0){
-                mp[i]++;
-                num/=i;
-            }
-        }
-        if(num>1)mp[num]++;
-        for(auto it=mp.rbegin();it!=mp.rend();it++){
-            cout<<it->first<<" "<<it->second;
-            if(it!=(--mp.rend()))cout<<" ";
-        }
-        cout<<'\n';
+    int n,p;
+    cin>>n>>p;
+    vector<pair<int,int>>v(n);
+    for (int i = 0; i < n; ++i) {
+        cin>>v[i].first>>v[i].second;
     }
+    long double ans=0;
+    for (int i = 1; i < n; ++i) {
+    long double c1= v[i].second/p-(v[i].first-1)/p,c2=v[i-1].second/p-(v[i-1].first-1)/p,r1=v[i].second-v[i].first+1,r2=v[i-1].second-v[i-1].first+1;
+    ans+= (c1*r2+c2*r1-c1*c2)*2000/(r1*r2);
+    }
+    long double c1= v[n-1].second/p-(v[n-1].first-1)/p,c2=v[0].second/p-(v[0].first-1)/p,r1=v[n-1].second-v[n-1].first+1,r2=v[0].second-v[0].first+1;
+    ans+= (c1*r2+c2*r1-c1*c2)*2000/(r1*r2);
+    cout<<fixed<<setprecision(10)<<ans;
 }
+
 
 int main() {
     int t = 1;

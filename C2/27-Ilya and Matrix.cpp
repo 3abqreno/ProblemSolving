@@ -8,6 +8,7 @@
 //                       |_|
 #include<iostream>
 #include <bits/stdc++.h>
+
 #define all(v) v.begin(),v.end()
 #define sortv(v) sort(all(v))
 using namespace std;
@@ -16,36 +17,26 @@ typedef long long ll;
 #define allam  ios_base::sync_with_stdio(false);cin.tie(nullptr);
 int dx[8] = {0, 0, 1, -1, 1, -1, 1, -1};
 int dy[8] = {1, -1, 0, 0, 1, -1, -1, 1};
-
-
+ll a[2000005];
 void solve() {
-    string s;
-    while(true){
-        getline(cin,s);
-        if(s=="0")return;
-        stringstream os;
-        os<<s;
-        int p,e,num=1;
-        while(os>>p>>e){
-            for (int i = 0; i < e; ++i) {
-                num*=p;
-            }
-        }
-        num--;
-        map<int,int>mp;
-        for (int i = 2; i*i<= num; ++i) {
-            while(num%i==0){
-                mp[i]++;
-                num/=i;
-            }
-        }
-        if(num>1)mp[num]++;
-        for(auto it=mp.rbegin();it!=mp.rend();it++){
-            cout<<it->first<<" "<<it->second;
-            if(it!=(--mp.rend()))cout<<" ";
-        }
-        cout<<'\n';
+   int n;
+   cin>>n;
+    for (int i = 0; i < n; ++i) {
+        cin>>a[i];
     }
+    if(n==1){
+        cout<<a[0];
+        return;
+    }
+    sort(a,a+n);
+    reverse(a,a+n);
+    ll ans=0;
+    for (int i = 0; i <= __lg(n)/2; ++i) {
+        for (int j = 0; j < 1<<(2*i); ++j) {
+            ans+=a[j];
+        }
+    }
+    cout<<ans;
 }
 
 int main() {

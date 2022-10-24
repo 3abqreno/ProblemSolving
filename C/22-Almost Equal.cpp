@@ -8,6 +8,7 @@
 //                       |_|
 #include<iostream>
 #include <bits/stdc++.h>
+
 #define all(v) v.begin(),v.end()
 #define sortv(v) sort(all(v))
 using namespace std;
@@ -16,35 +17,28 @@ typedef long long ll;
 #define allam  ios_base::sync_with_stdio(false);cin.tie(nullptr);
 int dx[8] = {0, 0, 1, -1, 1, -1, 1, -1};
 int dy[8] = {1, -1, 0, 0, 1, -1, -1, 1};
-
-
+int arr[200005];
 void solve() {
-    string s;
-    while(true){
-        getline(cin,s);
-        if(s=="0")return;
-        stringstream os;
-        os<<s;
-        int p,e,num=1;
-        while(os>>p>>e){
-            for (int i = 0; i < e; ++i) {
-                num*=p;
-            }
+   int n,curr=1;
+   cin>>n;
+   bool add=1;
+   if(!(n&1)){
+       cout<<"NO";return;
+   }
+    for (int i = 0; i < n; ++i) {
+        arr[i]=curr;
+        if(add){
+            arr[i+n]=curr+1;
+            curr+=3;
+        }else{
+        arr[i+n]=curr-1;
+        curr++;
         }
-        num--;
-        map<int,int>mp;
-        for (int i = 2; i*i<= num; ++i) {
-            while(num%i==0){
-                mp[i]++;
-                num/=i;
-            }
-        }
-        if(num>1)mp[num]++;
-        for(auto it=mp.rbegin();it!=mp.rend();it++){
-            cout<<it->first<<" "<<it->second;
-            if(it!=(--mp.rend()))cout<<" ";
-        }
-        cout<<'\n';
+        add=!add;
+    }
+    cout<<"YES\n";
+    for (int i = 0; i < 2*n; ++i) {
+        cout<<arr[i]<<" ";
     }
 }
 

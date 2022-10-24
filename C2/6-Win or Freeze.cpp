@@ -8,6 +8,7 @@
 //                       |_|
 #include<iostream>
 #include <bits/stdc++.h>
+
 #define all(v) v.begin(),v.end()
 #define sortv(v) sort(all(v))
 using namespace std;
@@ -17,34 +18,28 @@ typedef long long ll;
 int dx[8] = {0, 0, 1, -1, 1, -1, 1, -1};
 int dy[8] = {1, -1, 0, 0, 1, -1, -1, 1};
 
-
 void solve() {
-    string s;
-    while(true){
-        getline(cin,s);
-        if(s=="0")return;
-        stringstream os;
-        os<<s;
-        int p,e,num=1;
-        while(os>>p>>e){
-            for (int i = 0; i < e; ++i) {
-                num*=p;
-            }
+    ll q, f = 0;
+    cin >> q;
+    vector<int> factors;
+    for (ll i = 2; i * i <= q; i++) {
+        while (q % i == 0) {
+            f++;
+            factors.push_back(i);
+            q /= i;
         }
-        num--;
-        map<int,int>mp;
-        for (int i = 2; i*i<= num; ++i) {
-            while(num%i==0){
-                mp[i]++;
-                num/=i;
-            }
-        }
-        if(num>1)mp[num]++;
-        for(auto it=mp.rbegin();it!=mp.rend();it++){
-            cout<<it->first<<" "<<it->second;
-            if(it!=(--mp.rend()))cout<<" ";
-        }
-        cout<<'\n';
+    }
+    if(q>1){
+        f++;
+        factors.push_back(q);
+    }
+    if(f==2){
+        cout<<2;
+    }
+    else{
+        cout<<1<<'\n';
+        if(f==0)cout<<0;
+        else cout<<factors[0]*factors[1];
     }
 }
 
