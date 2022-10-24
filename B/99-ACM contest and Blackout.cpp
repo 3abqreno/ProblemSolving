@@ -47,15 +47,12 @@ struct dsu {
 };
 
 struct edge {
-    int from, to, w;
+    int from, to, w,index;
 
     edge() {}
-    edge(int a, int b, int c) : from(a), to(b), w(c) {}
+    edge(int a, int b, int c,int d) : from(a), to(b), w(c),index(d) {}
     bool operator<(const edge &other) const {
         return w > other.w;
-    }
-    bool operator == (const edge &other) const {
-        return this->to==other.to&&this->from==other.from&& this->w==other.w;
     }
 };
 
@@ -83,19 +80,13 @@ void solve() {
     for (int i = 0; i < m; ++i) {
         int a,b,c;
         cin>>a>>b>>c;a--,b--;
-        v[i].from=a,v[i].to=b,v[i].w=c;
+        v[i].from=a,v[i].to=b,v[i].w=c,v[i].index=i;
     }
     pair<int,vector<edge>>p;
     p=Kruskal(v,n);
     int index=0,ans=INT_MAX;
     for (int i = 0; i < n-1; ++i) {
-        for (int j = 0; j < m; ++j) {
-            if(v[j]==p.second[i]){
-                index=j;
-                break;
-            }
-        }
-        if(index==-1)cout<<-1;
+        index=p.second[i].index;
         int w=v[index].w;
         v[index].w=1e9;
         ans=min(ans, Kruskal(v,n).first);
