@@ -18,33 +18,36 @@ int dy[8] = {1, -1, 0, 0, 1, -1, -1, 1};
 
 
 void solve() {
-    int n, r,t=1;
+    int n, r, t = 1;
     while (cin >> n >> r) {
         if (!n && !r)return;
         vector<double> v(n);
-        cout<<"Case "<<t<<":\n";
+        cout << "Case " << t << ":\n";
         t++;
         for (int i = 0; i < n; ++i) {
             cin >> v[i];
         }
-        for (int i = 0; i < n; ++i) {
-            double a = 0, b = 0;
-            for (int j = 0; j <  (1 << n); ++j) {
-                if (__builtin_popcount(j) == r) {
-                    double p = 1;
-                    for (int k = 0; k < n; ++k) {
-                        if (j & (1 << k))p *= v[k];
-                        else p *= 1 - v[k];
-                    }
-                    b += p;
-                    if (j & (1 << i))a+=p;
-
+        double tot = 0;
+        vector<double> vp(n);
+        for (int j = 0; j < (1 << n); ++j) {
+            if (__builtin_popcount(j) == r) {
+                double p = 1;
+                for (int k = 0; k < n; ++k) {
+                    if (j & (1 << k))p *= v[k];
+                    else p *= 1 - v[k];
+                }
+                tot += p;
+                for (int k = 0; k < n; ++k) {
+                    if (j & (1 << k))vp[k] += p;
                 }
             }
-
-            cout << fixed<<setprecision(6)<<a / b << '\n';
         }
+        for (int i = 0; i < n; ++i) {
+            cout <<fixed<<setprecision(6)<< vp[i]/tot << '\n';
+        }
+
     }
+
 }
 
 int main() {
