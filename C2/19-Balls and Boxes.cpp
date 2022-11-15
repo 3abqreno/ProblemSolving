@@ -67,33 +67,14 @@ void solve() {
         }
     }
 
-    ll rem=v[index];
-    if(x==index){
-        v[index]*=n;
-        for (int i = 0; i < n; ++i) {
-            if(i==index)cout<<v[index]<<' ';
-            else cout<<v[i]-rem<<" ";
-        }
+    ll rem=v[index]*n;
+    for (int i = (index+1)%n; index != x; i = (i+1)%n) {
+        v[i]--; rem++;
+        if(i==x)break;
     }
-    else{
-        if(index<x){
-            v[index]=v[index]*n+x-index;
-            for (int i = 0; i < n; ++i) {
-                if(i==index)cout<<v[index]<<" ";
-                else if(i>index&&i<=x)cout<<v[i]-rem-1<<" ";
-                else cout<<v[i]-rem<<" ";
-            }
-        }else{
-        v[index]=v[index]*n+n-(index-x);
-            for (int i = 0; i < n; ++i) {
-                if(i==index)cout<<v[index]<<" ";
-                else if(i<=x||i>index)cout<<v[i]-rem-1<<" ";
-                else cout<<v[i]-rem<<" ";
-            }
-
-        }
-    }
-
+    int mn=v[index];
+    v[index]+=rem;
+    for(auto i:v)cout<<i-mn<<" ";
 
 }
 
